@@ -68,7 +68,8 @@ class Item:
                     texts.append("つかうと")
                     texts.append(f"{spell.name}のこうか")
             if in_shop:
-                for _ in range(10 - len(texts)):
+#                 for _ in range(10 - len(texts)):
+                for _ in range(9 - len(texts)):
                     texts.append("")
                 texts.append(f"{util.pad(self.price,6)} Gold")
                 texts.append(f" {util.pad(counts,2)}こ もっています")

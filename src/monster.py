@@ -39,9 +39,11 @@ class Monster:
     def draw(self):
         if not self.show:
             return None, None
-        mx = (8, 28, 64, 84, 120)[self.idx] - self.slide * 24
+#         mx = (8, 28, 64, 84, 120)[self.idx] - self.slide * 24
+        mx = (4, 24, 54, 74, 104)[self.idx] - self.slide * 24
         self.slide = max(self.slide - 1, 0)
-        my = (40, 112, 32, 104, 48)[self.idx]
+#         my = (40, 112, 32, 104, 48)[self.idx]
+        my = (40, 104, 32, 96, 48)[self.idx]
         u = (self.idx % 4) * 64
         v = (self.idx // 4) * 64
         w = -64 if self.reverse else 64

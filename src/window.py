@@ -66,7 +66,8 @@ class Window:
         # メンバー
         if self.key == "menu_members":
             for i, member in enumerate(members):
-                x = 8 if member.pos == 0 else 16
+#                 x = 8 if member.pos == 0 else 16
+                x = 4 if member.pos == 0 else 12
                 self.draw_member(x, 18 + i * 48, member)
         elif self.key in ("select_members", "treasure_members"):
             for i, member in enumerate(members):
@@ -226,11 +227,13 @@ class Window:
             texts = msg
         else:
             texts = msg_list[msg]
-        return cls.open("message", 1, 0, 30, 4, texts)
+#         return cls.open("message", 1, 0, 30, 4, texts)
+        return cls.open("message", 1, 0, 28, 4, texts)
 
     # セレクタウィンドウ
     @classmethod
-    def selector(cls, kind, parm=None, x=27, y=6):
+#     def selector(cls, kind, parm=None, x=27, y=6):
+    def selector(cls, kind, parm=None, x=25, y=6):
         if kind == "yn":
             texts = [" はい", " いいえ"]
             values = None
@@ -255,6 +258,7 @@ class Window:
             texts = [" New Game", " Continue", " Config"]
             values = None
             x1, y1, x2, y2 = x - 6, y - 4, x + 3, y - 2
+#             x1, y1, x2, y2 = x - 9, y - 4, x + 0, y - 2
             if not Userdata.is_web():
                 texts.append(" Exit")
                 y2 += 1

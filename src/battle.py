@@ -1311,8 +1311,10 @@ class Battle:
     def get_member_image(self, idx):
         member = self.members[idx]
         v_idxs = self.members_vanguard_idxs
-        x = 208 if not v_idxs or idx <= max(v_idxs) else 224
-        y = 40 + idx * 28
+#         x = 208 if not v_idxs or idx <= max(v_idxs) else 224
+        x = 196 if not v_idxs or idx <= max(v_idxs) else 212
+#         y = 40 + idx * 28
+        y = 34 + idx * 27
         motion = 0
         action = ""
         if member.health == 4:
@@ -1460,23 +1462,27 @@ class Battle:
         if Window.get("battle_popover"):
             self.saved_msg = [texts, parm]
         else:
-            win = Window.open("battle_msg", 2, 1, 29, 1, texts)
+#             win = Window.open("battle_msg", 2, 1, 29, 1, texts)
+            win = Window.open("battle_msg", 2, 1, 27, 1, texts)
             win.parm = parm
 
     def popover(self, texts, parm=18):
-        win = Window.open("battle_popover", 2, 1, 29, 1, texts)
+#         win = Window.open("battle_popover", 2, 1, 29, 1, texts)
+        win = Window.open("battle_popover", 2, 1, 27, 1, texts)
         win.parm = parm
         return win
 
     def show_main(self):
         Window.open(
-            "monsters", 1, 15, 14, 19, [ms.name for ms in self.monsters if ms.show]
+#             "monsters", 1, 15, 14, 19, [ms.name for ms in self.monsters if ms.show]
+            "monsters", 1, 14, 12, 18, [ms.name for ms in self.monsters if ms.show]
         )
         texts = [
             f"{util.spacing(mb.name,6)} {util.pad(mb.hp,3)}/{mb.status()}"
             for mb in self.members
         ]
-        Window.open("battle_status", 17, 15, 30, 19, texts)
+#         Window.open("battle_status", 17, 15, 30, 19, texts)
+        Window.open("battle_status", 15, 14, 28, 18, texts)
 
     def show_commands(self, command=None):
         self.phase = "command"
@@ -1513,7 +1519,8 @@ class Battle:
         cur_y = values.index(command) if not command is None else 0
         win = Window.get("battle_command")
         if not win:
-            win = Window.open("battle_command", 9, 15, 14, 19, texts)
+#             win = Window.open("battle_command", 9, 15, 14, 19, texts)
+            win = Window.open("battle_command", 7, 14, 12, 18, texts)
         win.texts = texts
         win.cur_y = cur_y
         win.values = values
@@ -1541,7 +1548,8 @@ class Battle:
                         cur_y = lv * 2 + 1 if cur_y is None else cur_y
             texts += [tm, tp]
         if win is None and cur_y is not None:
-            win = Window.open("battle_spells", 1, 15, 30, 19, texts)
+#             win = Window.open("battle_spells", 1, 15, 30, 19, texts)
+            win = Window.open("battle_spells", 1, 14, 28, 18, texts)
             win.add_cursol(None, [3, 12, 21])
             win.cur_y = cur_y
             win.parm = member_idx
@@ -1549,7 +1557,8 @@ class Battle:
             win.texts = texts
         win_guide = Window.get("battle_spells_guide")
         if not win_guide:
-            win_guide = Window.open("battle_spells_guide", 1, 12, 14, 13)
+#             win_guide = Window.open("battle_spells_guide", 1, 12, 14, 13)
+            win_guide = Window.open("battle_spells_guide", 1, 11, 14, 12)
         return win_guide
 
     # アイテム選択
@@ -1589,7 +1598,8 @@ class Battle:
             for i in range(len(texts) // 2)
         ]
         if win is None:
-            win = Window.open("battle_items", 1, 15, 30, 19, lines)
+#             win = Window.open("battle_items", 1, 15, 30, 19, lines)
+            win = Window.open("battle_items", 1, 14, 28, 18, lines)
             win.add_cursol(None, [0, 13])
             win.parm = member_idx
             if values[0] is None:
@@ -1602,7 +1612,8 @@ class Battle:
         win.values = values
         win_guide = Window.get("battle_items_guide")
         if not win_guide:
-            win_guide = Window.open("battle_items_guide", 1, 12, 14, 13)
+#             win_guide = Window.open("battle_items_guide", 1, 12, 14, 13)
+            win_guide = Window.open("battle_items_guide", 1, 11, 14, 12)
         return win_guide
 
     ### アニメーション

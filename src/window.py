@@ -84,10 +84,12 @@ class Window:
             item = self.parm
             for i, member in enumerate(members):
                 motion = 6 if member.can_equip(item) and px.frame_count % 30 < 15 else 0
-                self.draw_member(4 + i * 48, 6, member, motion)
+#                 self.draw_member(4 + i * 48, 6, member, motion)
+                self.draw_member(12 + i * 40, 6, member, motion)
                 if item.id in member.equips:
                     add_y = 1 if member.health < 4 else 0
-                    self.text(self.x1 + i * 6 + 3, self.y1 + add_y, "E")
+#                     self.text(self.x1 + i * 6 + 3, self.y1 + add_y, "E")
+                    self.text(self.x1 + i * 5 + 4, self.y1 + add_y, "E")
         elif self.key == "training_new":
             for idx in range(4):
                 x = self.x1 * 8 + idx * 56 + 16

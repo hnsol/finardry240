@@ -2439,7 +2439,7 @@ class App:
                 f" {util.spacing(item.name, 11)}       {util.pad(item.price//2, 6)}"
             )
 #         Window.open("shop_sell", 2, 5, 29, 16, texts).add_cursol()
-        Window.open("shop_sell", 2, 5, 28, 16, texts).add_cursol()
+        Window.open("shop_sell", 2, 5, 28, 15, texts).add_cursol()
 
     # ボルタックしょうてん：メッセージ
     def show_shop_msg(self, msg, parm=None):

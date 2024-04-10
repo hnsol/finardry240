@@ -2154,21 +2154,29 @@ class App:
                 ac_after = "→" + member.ac_disp
             member.equips = saved_equips
         texts = [
-            f"    {util.spacing(member.name,6)}   ",
-            f"    {member.class_s} ",
-            f"    {util.spacing('',8)} ",
-            f" こうげき {atc}{atc_after}  ",
-            f" AC   {ac}{ac_after}  ",
-            f"    {util.spacing('',8)} ",
+#             f"    {util.spacing(member.name,6)}   ",
+#             f"    {member.class_s} ",
+#             f"    {util.spacing('',8)} ",
+#             f" こうげき {atc}{atc_after}  ",
+#             f" AC   {ac}{ac_after}  ",
+#             f"    {util.spacing('',8)} ",
+            f"    {util.spacing(member.name,6)}  ",
+            f"    {member.class_s}",
+            f"    {util.spacing('',8)}",
+            f" こうげき {atc}{atc_after} ",
+            f" AC   {ac}{ac_after} ",
+            f"    {util.spacing('',8)}",
         ]
         for i in range(6):
+#             equip = util.spacing(member.equip(i + 1)[0].name, 11)
             equip = util.spacing(member.equip(i + 1)[0].name, 11)
             texts[i] += f"{util.spacing(const['item_type'][i+1],5)}:{equip}"
 
         if win is None:
 #             win = Window.open("menu_equips", 1, 0, 30, 5, texts)
+#             win.add_cursol([0, 1, 2, 3, 4, 5], [12])
             win = Window.open("menu_equips", 1, 0, 28, 5, texts)
-            win.add_cursol([0, 1, 2, 3, 4, 5], [12])
+            win.add_cursol([0, 1, 2, 3, 4, 5], [11])
             win.parm = member_idx
         else:
             win.texts = texts

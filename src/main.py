@@ -2232,23 +2232,40 @@ class App:
         ]
         cur_y = None
         for lv in range(6):
-            tm, tp = f"L{lv+1} ", f"{member.mp[lv]}/{member.mmp[lv]}"
+#             tm, tp = f"L{lv+1} ", f"{member.mp[lv]}/{member.mmp[lv]}"
+            tm, tp = f"L{lv+1}  ", f"{member.mp[lv]}/{member.mmp[lv]} "
+            first_spell_tm = True  # tm用のスペル追加が最初かどうかのフラグ
+            first_spell_tp = True  # tp用のスペル追加が最初かどうかのフラグ
             for spell in Spell.all():
                 if spell.id in member.spells and spell.lv == lv:
                     name = util.spacing(spell.name, 8)
                     if spell.type == 1:
-                        tm += f" {name}"
+#                         tm += f" {name}"
+                        if first_spell_tm:
+                            tm += f"{name} "
+                            first_spell_tm = False  # 最初の追加が終わったらフラグをFalseに
+                        else:
+                            tm += f"{name}"
                         cur_y = lv * 2 if cur_y is None else cur_y
                     elif spell.type == 2:
-                        tp += f" {name}"
+#                         tp += f" {name}"
+                        if first_spell_tp:
+                            tp += f"{name} "
+                            first_spell_tp = False  # 最初の追加が終わったらフラグをFalseに
+                        else:
+                            tp += f"{name}"
                         cur_y = lv * 2 + 1 if cur_y is None else cur_y
 #             texts += ["", tm, tp]
-            texts += [tm, tp, ""]
+#             texts += [tm, tp, ""]
+            if lv < 5:
+                texts += ["", ]
+            texts += [tm, tp]
         if not cur_y is None and win is None:
 #             win = Window.open("menu_spells", 1, 0, 30, 19, texts)
             win = Window.open("menu_spells", 1, 0, 28, 18, texts)
 #             win.add_cursol([3, 4, 6, 7, 9, 10, 12, 13, 15, 16, 18, 19], [3, 12, 21])
-            win.add_cursol([2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18], [3, 12, 21])
+#             win.add_cursol([2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18], [3, 12, 21])
+            win.add_cursol([3, 4, 6, 7, 9, 10, 12, 13, 15, 16, 17, 18], [3, 12, 20])
             win.cur_y = cur_y
             win.parm = member_idx
         elif win:

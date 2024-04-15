@@ -1968,7 +1968,9 @@ class App:
     # メニューウィンドウ（パーティ）
     def show_menu_members(self):
         texts = []
-        for mb in self.members:
+        total_members = len(self.members)
+#         for mb in self.members:
+        for i, mb in enumerate(self.members):
             if len(mb.spells):
 #                 str_mp = "     MP "
                 str_mp = "     MP "
@@ -1981,11 +1983,13 @@ class App:
             texts += [
 #                 f" {util.spacing(mb.name,6)} {mb.class_s} LV {util.pad(mb.lv,2)}",
 #                 f"     HP {util.pad(mb.hp,3)}/{mb.status()}  AC {mb.ac_disp}",
-                 f" {util.spacing(mb.name,6)} {mb.class_s}LV{util.pad(mb.lv,2)}",
-                 f"     HP {util.pad(mb.hp,3)}/{mb.status()} AC{mb.ac_disp}",
+#                 "",
+                f" {util.spacing(mb.name,6)} {mb.class_s}LV{util.pad(mb.lv,2)}",
+                f"     HP {util.pad(mb.hp,3)}/{mb.status()} AC{mb.ac_disp}",
                 str_mp,
-                "",
             ]
+            if i < total_members - 1:
+                texts += ["", ]
 #         return Window.open("menu_members", 1, 0, 22, 19, texts)
         return Window.open("menu_members", 1, 0, 20, 18, texts)
 

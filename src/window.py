@@ -66,8 +66,8 @@ class Window:
         # メンバー
         if self.key == "menu_members":
             for i, member in enumerate(members):
-#                 x = 8 if member.pos == 0 else 16
-                x = 4 if member.pos == 0 else 12
+                x = 8 if member.pos == 0 else 16
+#                 x = 4 if member.pos == 0 else 12
                 self.draw_member(x, 18 + i * 48, member)
         elif self.key in ("select_members", "treasure_members"):
             for i, member in enumerate(members):

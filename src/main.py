@@ -1971,7 +1971,7 @@ class App:
         for mb in self.members:
             if len(mb.spells):
 #                 str_mp = "     MP "
-                str_mp = "    MP "
+                str_mp = "     MP "
                 for mlv in range(6):
                     str_mp += str(mb.mp[mlv])
                     if mlv < 5:
@@ -1981,8 +1981,8 @@ class App:
             texts += [
 #                 f" {util.spacing(mb.name,6)} {mb.class_s} LV {util.pad(mb.lv,2)}",
 #                 f"     HP {util.pad(mb.hp,3)}/{mb.status()}  AC {mb.ac_disp}",
-                f"{util.spacing(mb.name,6)} {mb.class_s}LV {util.pad(mb.lv,2)}",
-                f"    HP {util.pad(mb.hp,3)}/{mb.status()} AC {mb.ac_disp}",
+                 f" {util.spacing(mb.name,6)} {mb.class_s}LV{util.pad(mb.lv,2)}",
+                 f"     HP {util.pad(mb.hp,3)}/{mb.status()} AC{mb.ac_disp}",
                 str_mp,
                 "",
             ]

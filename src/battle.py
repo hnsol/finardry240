@@ -1536,21 +1536,43 @@ class Battle:
         texts = []
         cur_y = None
         for lv in range(6):
-            tm, tp = f"L{lv+1} ", f"{member.mp[lv]}/{member.mmp[lv]}"
+#             tm, tp = f"L{lv+1} ", f"{member.mp[lv]}/{member.mmp[lv]}"
+#             for spell in Spell.all():
+#                 if spell.id in member.spells and spell.lv == lv:
+#                     name = util.spacing(spell.name, 8)
+#                     if spell.type == 1:
+#                         tm += f" {name}"
+#                         cur_y = lv * 2 if cur_y is None else cur_y
+#                     elif spell.type == 2:
+#                         tp += f" {name}"
+#                         cur_y = lv * 2 + 1 if cur_y is None else cur_y
+#             texts += [tm, tp]
+            tm, tp = f"L{lv+1}  ", f"{member.mp[lv]}/{member.mmp[lv]} "
+            first_spell_tm = True  # tm用のスペル追加が最初かどうかのフラグ
+            first_spell_tp = True  # tp用のスペル追加が最初かどうかのフラグ
             for spell in Spell.all():
                 if spell.id in member.spells and spell.lv == lv:
                     name = util.spacing(spell.name, 8)
                     if spell.type == 1:
-                        tm += f" {name}"
+                        if first_spell_tm:
+                            tm += f"{name} "
+                            first_spell_tm = False  # 最初の追加が終わったらフラグをFalseに
+                        else:
+                            tm += f"{name}"
                         cur_y = lv * 2 if cur_y is None else cur_y
                     elif spell.type == 2:
-                        tp += f" {name}"
+                        if first_spell_tp:
+                            tp += f"{name} "
+                            first_spell_tp = False  # 最初の追加が終わったらフラグをFalseに
+                        else:
+                            tp += f"{name}"
                         cur_y = lv * 2 + 1 if cur_y is None else cur_y
             texts += [tm, tp]
         if win is None and cur_y is not None:
 #             win = Window.open("battle_spells", 1, 15, 30, 19, texts)
             win = Window.open("battle_spells", 1, 14, 28, 18, texts)
-            win.add_cursol(None, [3, 12, 21])
+#             win.add_cursol(None, [3, 12, 21])
+            win.add_cursol(None, [3, 12, 20])
             win.cur_y = cur_y
             win.parm = member_idx
         elif win:

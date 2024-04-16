@@ -95,6 +95,11 @@ def spacing(val, length):
     return str(val).ljust(length).translate(h2z)[-length:]
 
 
+# 指定された長さで左寄せにし、長すぎる場合は右を切り捨てる
+def ljust_truncate(val, length):
+    return str(val).ljust(length)[:length]
+
+
 # パディング右よせ
 def pad(val, length, fill=" "):
     return str(val).rjust(length, fill).translate(h2z)[-length:]

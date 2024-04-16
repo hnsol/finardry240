@@ -2173,7 +2173,7 @@ class App:
         ]
         for i in range(6):
 #             equip = util.spacing(member.equip(i + 1)[0].name, 11)
-            equip = util.spacing(member.equip(i + 1)[0].name, 11)
+            equip = util.ljust_truncate(member.equip(i + 1)[0].name, 10)
             texts[i] += f"{util.spacing(const['item_type'][i+1],5)}:{equip}"
 
         if win is None:

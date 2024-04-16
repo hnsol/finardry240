@@ -9,6 +9,12 @@
 - 改訂におけるすべての責任は私にありますので、原作者には問い合わせないでください。
 - `finardry.pyxapp` をダウンロードしてご利用ください。
 
+![before-after.jpeg](https://cdn-ak.f.st-hatena.com/images/fotolife/m/masatora_bd5/20240417/20240417020939.jpg)
+
+> 左がオリジナル版、右が本リポジトリ版 finardry240
+
+<br>
+
 以下は、"finardry" のオリジナルのREADMEです。
 
 ---

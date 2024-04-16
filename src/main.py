@@ -21,17 +21,19 @@ names = util.load_texts("data/names.txt")
 chambers_master = util.load_json("data/chambers")
 
 MODE_SQUARE = True
-if not Userdata.is_web():
-    if os.name == "posix" and platform.system() != "Darwin":
-        MODE_SQUARE = False
+# if not Userdata.is_web():
+#     if os.name == "posix" and platform.system() != "Darwin":
+#         MODE_SQUARE = False
 
 
 class App:
     def __init__(self):
-        height = 256 if MODE_SQUARE else 240
-        px.init(256, height, title="Finardry", quit_key=px.KEY_NONE)
-        if not MODE_SQUARE:
-            px.camera(0, 6)
+#         height = 256 if MODE_SQUARE else 240
+        height = 240
+#         px.init(256, height, title="Finardry", quit_key=px.KEY_NONE)
+        px.init(240, height, title="Finardry", quit_key=px.KEY_NONE)
+#         if not MODE_SQUARE:
+#             px.camera(0, 6)
         px.load("wiz2d.pyxres")
         # px.images[0].save("../images/image0.png", 1)
         # px.images[1].save("../images/image1.png", 1)
@@ -348,7 +350,8 @@ class App:
                             "treasure_msg",
                             1,
                             1,
-                            30,
+#                             30,
+                            28,
                             2,
                             "たからのはこだ！ どうしますか？",
                         ).parm = False
@@ -498,7 +501,8 @@ class App:
                 self.item_guide(idx)
             if btn["s"]:
                 Window.open(
-                    "select_item", 25, 18, 29, 19, [" つかう", " すてる"]
+#                     "select_item", 25, 18, 29, 19, [" つかう", " すてる"]
+                    "select_item", 24, 17, 28, 18, [" つかう", " すてる"]
                 ).add_cursol().parm = idx
             elif btn["a"]:
                 self.show_menu(0)
@@ -924,7 +928,8 @@ class App:
                     self.change_job(member, win.cur_value.id)
                     is_close = True
                     texts = member.text_detail
-                    Window.open("training_job_changed", 1, 0, 30, 19, texts).parm = (
+#                     Window.open("training_job_changed", 1, 0, 30, 19, texts).parm = (
+                    Window.open("training_job_changed", 1, 0, 28, 18, texts).parm = (
                         member
                     )
                 else:
@@ -1559,7 +1564,9 @@ class App:
             elif self.scene in [2, 3, 4] and Window.get("place"):
                 place = Window.get("place").parm
                 if place == None or Window.get("training"):
-                    px.blt(28, 36, 1, 0, 0, 208, 112)
+#                     px.blt(28, 36, 1, 0, 0, 208, 112)
+                    # (240-208)/2 = 16, +2は目で調整
+                    px.blt(18, 36, 1, 0, 0, 208, 112)
         # ウィンドウ
         for key in Window.all:
             win = Window.all[key]
@@ -1632,8 +1639,7 @@ class App:
         texts = [
             "そうさほうほう（キーボード)",
             " じゅうじキー  : いどう、カーソルせんたく",
-            " Sキー     : けってい",
-            " Aキー     : キャンセル",
+            " S/Aキー   : けってい/キャンセル",
             " Wキー     : メニューをひらく",
             " ESC+1キー : リセット",
             "",
@@ -1643,9 +1649,10 @@ class App:
             " B/みぎボタン : キャンセル",
             " X/ひだりボタン: メニューをひらく",
             " Y/うえボタン : リセット（ながおし２びょう）",
-            "                   ver.231210",
+            "            ver.231210-240a",
         ]
-        Window.open("operation_guide", 2, 6, 28, 19, texts, True)
+#         Window.open("operation_guide", 2, 6, 28, 19, texts, True)
+        Window.open("operation_guide", 2, 6, 28, 18, texts, True)
 
     # コンフィグ
     def show_config(self):
@@ -1661,7 +1668,8 @@ class App:
         if win:
             win.texts = texts
         else:
-            win = Window.open("config", 8, 7, 23, 10, texts).add_cursol()
+#             win = Window.open("config", 8, 7, 23, 10, texts).add_cursol()
+            win = Window.open("config", 7, 7, 22, 10, texts).add_cursol()
         if win.parm:
             texts = win.parm
         elif win.cur_y == 0:
@@ -1685,7 +1693,8 @@ class App:
                 " セーブデータの きょうゆうを",
                 " することができます",
             ]
-        Window.open("config_guide", 8, 13, 23, 16, texts)
+#         Window.open("config_guide", 8, 13, 23, 16, texts)
+        Window.open("config_guide", 7, 13, 22, 16, texts)
 
     # セーブコード入力
     def show_save_code(self):
@@ -1900,12 +1909,15 @@ class App:
     def show_status(self):
         if "status" in Window.all:
             return
-        texts = ["なまえ    クラス      LV AC  HP"]
+#         texts = ["なまえ    クラス      LV AC  HP"]
+        texts = ["なまえ    クラス     LV AC  HP"]
         for mb in self.members:
             texts.append(
-                f"{util.spacing(mb.name,6)} {mb.class_s} {util.pad(mb.lv,2)} {mb.ac_disp} {util.pad(mb.hp,3)}/{mb.status()}"
+#                 f"{util.spacing(mb.name,6)} {mb.class_s} {util.pad(mb.lv,2)} {mb.ac_disp} {util.pad(mb.hp,3)}/{mb.status()}"
+                f"{util.spacing(mb.name,6)} {mb.class_s}{util.pad(mb.lv,2)} {mb.ac_disp} {util.pad(mb.hp,3)}/{mb.status()}"
             )
-        Window.open("status", 1, 14, 30, 19, texts)
+#         Window.open("status", 1, 14, 30, 19, texts)
+        Window.open("status", 1, 13, 28, 18, texts)
 
     # メニューウィンドウ（コマンド）
     def show_menu(self, cur_y=0):
@@ -1925,7 +1937,8 @@ class App:
         ]
         if not self.config["auto_save"]:
             texts.append(" セーブ")
-        win = Window.open("menu", 25, 0, 30, len(texts) - 1, texts).add_cursol()
+#         win = Window.open("menu", 25, 0, 30, len(texts) - 1, texts).add_cursol()
+        win = Window.open("menu", 23, 0, 28, len(texts) - 1, texts).add_cursol()
         win.cur_y = cur_y
         win.parm = parm
         self.show_menu_info()
@@ -1951,13 +1964,17 @@ class App:
             y2 = 13
         if self.scene in [2, 3]:
             texts[0] = "キャッスル"
-        Window.open("menu_info", 25, y1, 30, y2, texts)
+#         Window.open("menu_info", 25, y1, 30, y2, texts)
+        Window.open("menu_info", 23, y1, 28, y2, texts)
 
     # メニューウィンドウ（パーティ）
     def show_menu_members(self):
         texts = []
-        for mb in self.members:
+        total_members = len(self.members)
+#         for mb in self.members:
+        for i, mb in enumerate(self.members):
             if len(mb.spells):
+#                 str_mp = "     MP "
                 str_mp = "     MP "
                 for mlv in range(6):
                     str_mp += str(mb.mp[mlv])
@@ -1966,15 +1983,21 @@ class App:
             else:
                 str_mp = ""
             texts += [
-                f" {util.spacing(mb.name,6)} {mb.class_s} LV {util.pad(mb.lv,2)}",
-                f"     HP {util.pad(mb.hp,3)}/{mb.status()}  AC {mb.ac_disp}",
+#                 f" {util.spacing(mb.name,6)} {mb.class_s} LV {util.pad(mb.lv,2)}",
+#                 f"     HP {util.pad(mb.hp,3)}/{mb.status()}  AC {mb.ac_disp}",
+#                 "",
+                f" {util.spacing(mb.name,6)} {mb.class_s}LV{util.pad(mb.lv,2)}",
+                f"     HP {util.pad(mb.hp,3)}/{mb.status()} AC{mb.ac_disp}",
                 str_mp,
-                "",
             ]
-        return Window.open("menu_members", 1, 0, 22, 19, texts)
+            if i < total_members - 1:
+                texts += ["", ]
+#         return Window.open("menu_members", 1, 0, 22, 19, texts)
+        return Window.open("menu_members", 1, 0, 20, 18, texts)
 
     # ターゲット選択
-    def show_select_members(self, parm=None, x=8, y=4):
+#     def show_select_members(self, parm=None, x=8, y=4):
+    def show_select_members(self, parm=None, x=7, y=4):
         texts = []
         for mb in self.members:
             texts += [
@@ -1995,7 +2018,8 @@ class App:
             return None
         texts = self.members[idx].text_detail
         if win is None:
-            win = Window.open("menu_detail", 1, 0, 30, 19, texts)
+#             win = Window.open("menu_detail", 1, 0, 30, 19, texts)
+            win = Window.open("menu_detail", 1, 0, 28, 18, texts)
             win.parm = member_idx
         else:
             win.texts = texts
@@ -2023,11 +2047,13 @@ class App:
             if i % 2 == 1 or i == len(self.items) - 1:
                 texts.append(text)
                 text = ""
-        win = Window.open("menu_items", 2, 0, 29, 16, texts).add_cursol(None, [0, 13])
+#         win = Window.open("menu_items", 2, 0, 29, 16, texts).add_cursol(None, [0, 13])
+        win = Window.open("menu_items", 1, 0, 28, 15, texts).add_cursol(None, [0, 13])
         if win.cur_y * 2 + win.cur_x >= len(self.items):
             win.cur_y = 0
             win.cur_x = 0
-        Window.open("item_message", 2, 18, 29, 19, mes)
+#         Window.open("item_message", 2, 18, 29, 19, mes)
+        Window.open("item_message", 1, 17, 28, 18, mes)
         if mes is None:
             self.item_guide(0)
         return True
@@ -2064,7 +2090,8 @@ class App:
     def available_item(self, item_id):
         use = Item(item_id).use
         if use == 99 and self.scene != 1:
-            Window.open("select_members_mes", 8, 2, 24, 2, "  だれが つかいますか？")
+#             Window.open("select_members_mes", 8, 2, 24, 2, "  だれが つかいますか？")
+            Window.open("select_members_mes", 7, 2, 23, 2, "  だれが つかいますか？")
             self.show_select_members((None, None, item_id))
         elif use:
             return self.available_spell(Spell(use))
@@ -2133,20 +2160,29 @@ class App:
                 ac_after = "→" + member.ac_disp
             member.equips = saved_equips
         texts = [
-            f"    {util.spacing(member.name,6)}   ",
-            f"    {member.class_s} ",
-            f"    {util.spacing('',8)} ",
-            f" こうげき {atc}{atc_after}  ",
-            f" AC   {ac}{ac_after}  ",
-            f"    {util.spacing('',8)} ",
+#             f"    {util.spacing(member.name,6)}   ",
+#             f"    {member.class_s} ",
+#             f"    {util.spacing('',8)} ",
+#             f" こうげき {atc}{atc_after}  ",
+#             f" AC   {ac}{ac_after}  ",
+#             f"    {util.spacing('',8)} ",
+            f"    {util.spacing(member.name,6)}  ",
+            f"    {member.class_s}",
+            f"    {util.spacing('',8)}",
+            f" こうげき {atc}{atc_after} ",
+            f" AC   {ac}{ac_after} ",
+            f"    {util.spacing('',8)}",
         ]
         for i in range(6):
-            equip = util.spacing(member.equip(i + 1)[0].name, 11)
+#             equip = util.spacing(member.equip(i + 1)[0].name, 11)
+            equip = util.ljust_truncate(member.equip(i + 1)[0].name, 10)
             texts[i] += f"{util.spacing(const['item_type'][i+1],5)}:{equip}"
 
         if win is None:
-            win = Window.open("menu_equips", 1, 0, 30, 5, texts)
-            win.add_cursol([0, 1, 2, 3, 4, 5], [12])
+#             win = Window.open("menu_equips", 1, 0, 30, 5, texts)
+#             win.add_cursol([0, 1, 2, 3, 4, 5], [12])
+            win = Window.open("menu_equips", 1, 0, 28, 5, texts)
+            win.add_cursol([0, 1, 2, 3, 4, 5], [11])
             win.parm = member_idx
         else:
             win.texts = texts
@@ -2167,7 +2203,8 @@ class App:
             if item.type == type and member.can_equip(item):
                 texts.append(f" {item.name}")
                 values.append(id)
-        Window.open("menu_equip_items", 1, 7, 14, 19, texts).values = values
+#         Window.open("menu_equip_items", 1, 7, 14, 19, texts).values = values
+        Window.open("menu_equip_items", 1, 7, 13, 18, texts).values = values
 
     # そうびガイド欄
     def show_equip_guide(self):
@@ -2178,7 +2215,8 @@ class App:
             item = Item(win_items.cur_value)
         else:
             item = Item(member.equip(win.cur_y + 1)[0].id)
-        Window.open("menu_equip_guide", 17, 7, 30, 19, item.details())
+#         Window.open("menu_equip_guide", 17, 7, 30, 19, item.details())
+        Window.open("menu_equip_guide", 16, 7, 28, 18, item.details())
 
     ### じゅもん ###
 
@@ -2195,28 +2233,58 @@ class App:
             f"     {member.class_s}",
         ]
         cur_y = None
+
+#         for lv in range(6):
+#             tm, tp = f"L{lv+1} ", f"{member.mp[lv]}/{member.mmp[lv]}"
+#             for spell in Spell.all():
+#                 if spell.id in member.spells and spell.lv == lv:
+#                     name = util.spacing(spell.name, 8)
+#                     if spell.type == 1:
+#                         tm += f" {name}"
+#                         cur_y = lv * 2 if cur_y is None else cur_y
+#                     elif spell.type == 2:
+#                         tp += f" {name}"
+#                         cur_y = lv * 2 + 1 if cur_y is None else cur_y
+#             texts += ["", tm, tp]
+
         for lv in range(6):
-            tm, tp = f"L{lv+1} ", f"{member.mp[lv]}/{member.mmp[lv]}"
+            tm, tp = f"L{lv+1}  ", f"{member.mp[lv]}/{member.mmp[lv]} "
+            first_spell_tm = True  # tm用のスペル追加が最初かどうかのフラグ
+            first_spell_tp = True  # tp用のスペル追加が最初かどうかのフラグ
             for spell in Spell.all():
                 if spell.id in member.spells and spell.lv == lv:
                     name = util.spacing(spell.name, 8)
                     if spell.type == 1:
-                        tm += f" {name}"
+                        if first_spell_tm:
+                            tm += f"{name} "
+                            first_spell_tm = False  # 最初の追加が終わったらフラグをFalseに
+                        else:
+                            tm += f"{name}"
                         cur_y = lv * 2 if cur_y is None else cur_y
                     elif spell.type == 2:
-                        tp += f" {name}"
+                        if first_spell_tp:
+                            tp += f"{name} "
+                            first_spell_tp = False  # 最初の追加が終わったらフラグをFalseに
+                        else:
+                            tp += f"{name}"
                         cur_y = lv * 2 + 1 if cur_y is None else cur_y
-            texts += ["", tm, tp]
+            if lv < 5:
+                texts += ["", ]
+            texts += [tm, tp]
         if not cur_y is None and win is None:
-            win = Window.open("menu_spells", 1, 0, 30, 19, texts)
-            win.add_cursol([3, 4, 6, 7, 9, 10, 12, 13, 15, 16, 18, 19], [3, 12, 21])
+#             win = Window.open("menu_spells", 1, 0, 30, 19, texts)
+            win = Window.open("menu_spells", 1, 0, 28, 18, texts)
+#             win.add_cursol([3, 4, 6, 7, 9, 10, 12, 13, 15, 16, 18, 19], [3, 12, 21])
+#             win.add_cursol([2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18], [3, 12, 21])
+            win.add_cursol([3, 4, 6, 7, 9, 10, 12, 13, 15, 16, 17, 18], [3, 12, 20])
             win.cur_y = cur_y
             win.parm = member_idx
         elif win:
             win.texts = texts
         win_guide = Window.get("spells_guide")
         if win and win_guide is None:
-            Window.open("spells_guide", 17, 0, 30, 1)
+#             Window.open("spells_guide", 17, 0, 30, 1)
+            Window.open("spells_guide", 15, 0, 28, 1)
         return win
 
     def available_spell(self, spell, member=None):
@@ -2241,7 +2309,8 @@ class App:
         if spell.target == 1:
             if target is None:
                 Window.open(
-                    "select_members_mes", 8, 2, 24, 2, "  だれに つかいますか？"
+#                     "select_members_mes", 8, 2, 24, 2, "  だれに つかいますか？"
+                    "select_members_mes", 7, 2, 23, 2, "  だれに つかいますか？"
                 )
                 self.show_select_members((spell, member, item_id))
                 return None, False
@@ -2320,7 +2389,8 @@ class App:
             " くんれんじょう",
             " ちかめいきゅう",
         ]
-        Window.open("catsle", 10, 13, 21, 17, texts).add_cursol().cur_y = cur_y
+#         Window.open("catsle", 10, 13, 21, 17, texts).add_cursol().cur_y = cur_y
+        Window.open("catsle", 9, 13, 20, 17, texts).add_cursol().cur_y = cur_y
 
     # キャッスル内の場所
     def show_place(self, parm):
@@ -2337,7 +2407,8 @@ class App:
         bef_spc = (12 - len(place)) // 2
         aft_spc = (13 - len(place)) // 2
         Window.open(
-            "place", 10, 1, 21, 1, f"{' ' * bef_spc}{place}{' ' * aft_spc}"
+#             "place", 10, 1, 21, 1, f"{' ' * bef_spc}{place}{' ' * aft_spc}"
+            "place", 9, 1, 20, 1, f"{' ' * bef_spc}{place}{' ' * aft_spc}"
         ).parm = parm
 
     # ギルガメッシュのさかば：メイン
@@ -2361,8 +2432,10 @@ class App:
                 else:
                     values_excluded.append(member)
         if not win_old:
-            Window.open("bar", 4, 3, 28, 12, texts_old).add_cursol().values = values
-            Window.open("bar_new", 4, 14, 28, 18, texts_new).values = []
+#             Window.open("bar", 4, 3, 28, 12, texts_old).add_cursol().values = values
+#             Window.open("bar_new", 4, 14, 28, 18, texts_new).values = []
+            Window.open("bar", 3, 3, 27, 12, texts_old).add_cursol().values = values
+            Window.open("bar_new", 3, 14, 27, 18, texts_new).values = []
         else:
             if len(win_new.values) > 0:
                 texts_old.append(" (へんせいを おえる)")
@@ -2377,11 +2450,14 @@ class App:
     # ボルタックしょうてん：メイン
     def show_shop(self):
         if not Window.get("shop_buysell"):
-            Window.open("shop_buysell", 2, 3, 10, 3, [" かう   うる"]).add_cursol(
-                [0], [0, 5]
+#             Window.open("shop_buysell", 2, 3, 10, 3, [" かう   うる"]).add_cursol(
+#                 [0], [0, 5]
+            Window.open("shop_buysell", 2, 3, 9, 3, [" かう  うる"]).add_cursol(
+                [0], [0, 4]
             )
         Window.open(
-            "shop_gold", 13, 3, 29, 3, [f"しょじきん:{util.pad(self.gold,6)} Gold"]
+#             "shop_gold", 13, 3, 29, 3, [f"しょじきん:{util.pad(self.gold,6)} Gold"]
+            "shop_gold", 12, 3, 28, 3, [f"しょじきん:{util.pad(self.gold,6)} Gold"]
         )
 
     # ボルタックしょうてん：買う
@@ -2395,14 +2471,16 @@ class App:
             elif self.exist_imperial and item.price:
                 values.append(Item())
                 texts.append(f" ？")
-        Window.open("shop_buy", 2, 5, 15, 16, texts).add_cursol().values = values
+#         Window.open("shop_buy", 2, 5, 15, 16, texts).add_cursol().values = values
+        Window.open("shop_buy", 2, 5, 14, 15, texts).add_cursol().values = values
 
     # ボルタックしょうてん：お店ガイド
     def show_shop_guide(self):
         win = Window.get("shop_buy")
         item = win.values[win.cur_y]
         texts = item.details(True, self.items.count(item.id)) if item else []
-        Window.open("shop_guide", 17, 5, 29, 16, texts)
+#         Window.open("shop_guide", 17, 5, 29, 16, texts)
+        Window.open("shop_guide", 16, 5, 28, 15, texts)
 
     # ボルタックしょうてん：売る
     def show_shop_sell(self):
@@ -2412,16 +2490,20 @@ class App:
             texts.append(
                 f" {util.spacing(item.name, 11)}       {util.pad(item.price//2, 6)}"
             )
-        Window.open("shop_sell", 2, 5, 29, 16, texts).add_cursol()
+#         Window.open("shop_sell", 2, 5, 29, 16, texts).add_cursol()
+        Window.open("shop_sell", 2, 5, 28, 15, texts).add_cursol()
 
     # ボルタックしょうてん：メッセージ
     def show_shop_msg(self, msg, parm=None):
-        Window.open("shop_msg", 2, 18, 29, 19, msg).parm = parm
+#         Window.open("shop_msg", 2, 18, 29, 19, msg).parm = parm
+        Window.open("shop_msg", 2, 17, 28, 18, msg).parm = parm
 
     # カントじいん：メイン
     def show_temple(self, msg):
-        Window.open("select_members_mes", 4, 18, 28, 18, msg)
-        win = self.show_select_members(None, 4, 3)
+#         Window.open("select_members_mes", 4, 18, 28, 18, msg)
+        Window.open("select_members_mes", 3, 18, 27, 18, msg)
+#         win = self.show_select_members(None, 4, 3)
+        win = self.show_select_members(None, 3, 3)
         return win
 
     # カントじいん：おかね欄
@@ -2429,7 +2511,8 @@ class App:
         texts = ["Gold", util.pad(self.gold, 6)]
         if gold:
             texts += ["", "きふきん", util.pad(gold, 6)]
-        Window.open("temple_gold", 23, 3, 28, 7, texts)
+#         Window.open("temple_gold", 23, 3, 28, 7, texts)
+        Window.open("temple_gold", 22, 3, 27, 7, texts)
 
     # くんれんじょうメイン
     def show_training(self, cur_y=None):
@@ -2443,7 +2526,8 @@ class App:
             " しょくぎょうを かえる",
             " しろに もどる",
         ]
-        win = Window.open("training", 10, 13, 21, 17, texts).add_cursol()
+#         win = Window.open("training", 10, 13, 21, 17, texts).add_cursol()
+        win = Window.open("training", 9, 13, 20, 17, texts).add_cursol()
         if not cur_y is None:
             win.cur_y = cur_y
 
@@ -2458,16 +2542,18 @@ class App:
                     " Finardryのパーティは 5にんへんせいです。",
                     " 4・5にんめはこうえいで、せっきんせんができません。",
                     "",
-                    " はじめてプレイするばあいは 「せんし・せんし・とうぞく・",
+                    " はじめてプレイするばあい 「せんし・せんし・とうぞく・",
                     " そうりょ・まほうつかい」 がおすすめです。",
                 ]
-                Window.open("training_tutorial", 1, 13, 30, 18, texts)
+#                 Window.open("training_tutorial", 1, 13, 30, 18, texts)
+                Window.open("training_tutorial", 1, 13, 28, 18, texts)
 
         if not win or win.parm is None:
             texts = ["しょくぎょうを えらんでください", "", "", "", "", "", "", "", ""]
             for job_id in [1, 2, 3, 4]:
                 texts[2] += f" {Job(job_id).name}"
-            Window.open("training_new", 1, 3, 30, 11, texts).add_cursol(
+#             Window.open("training_new", 1, 3, 30, 11, texts).add_cursol(
+            Window.open("training_new", 1, 3, 28, 11, texts).add_cursol(
                 [2], [0, 7, 14, 21]
             )
         elif not win_nat:
@@ -2482,10 +2568,11 @@ class App:
                     cur_pos_y.append(pos_y)
             texts += [
                 " せいかくによって なれるしょくぎょうが かわります。",
-                " 「ぜん」と「あく」のキャラクターは パーティをくめません。",
+                " ぜん と あく のキャラクターは パーティをくめません。",
                 " せいかくは こうどうによって かわることがあります。",
             ]
-            Window.open("training_nature", 1, 10, 30, 18, texts).add_cursol(
+#             Window.open("training_nature", 1, 10, 30, 18, texts).add_cursol(
+            Window.open("training_nature", 1, 10, 28, 18, texts).add_cursol(
                 cur_pos_y
             ).values = values
 
@@ -2497,7 +2584,8 @@ class App:
     # くんれんじょう キャラクターをつくる（確認）
     def show_training_new_member(self, member):
         texts = member.text_detail
-        Window.open("training_new_member", 1, 0, 30, 19, texts).parm = member
+#         Window.open("training_new_member", 1, 0, 30, 19, texts).parm = member
+        Window.open("training_new_member", 1, 0, 28, 18, texts).parm = member
         exclude_nature = 0
         for mb in self.members:
             if mb.nature in [1, 3]:
@@ -2511,7 +2599,8 @@ class App:
             texts = [" パーティに くわえる"] + texts
             values = [0] + values
         Window.open(
-            "training_new_confirm", 15, 17, 30, 19, texts
+#             "training_new_confirm", 15, 17, 30, 19, texts
+            "training_new_confirm", 14, 16, 28, 18, texts
         ).add_cursol().values = values
 
     # くんれんじょう キャラクターをけす
@@ -2522,10 +2611,12 @@ class App:
             texts.append(member.text_catsle)
             values.append(member)
         if len(values):
-            Window.open("training_delete", 4, 3, 28, 12, texts).add_cursol().values = (
+#             Window.open("training_delete", 4, 3, 28, 12, texts).add_cursol().values = (
+            Window.open("training_delete", 3, 3, 27, 12, texts).add_cursol().values = (
                 values
             )
-            Window.open("training_delete_msg", 4, 14, 28, 18, msg).has_cur = None
+#             Window.open("training_delete_msg", 4, 14, 28, 18, msg).has_cur = None
+            Window.open("training_delete_msg", 3, 14, 27, 18, msg).has_cur = None
         else:
             self.show_training(1)
             Window.close(["training_delete", "training_delete_msg"])
@@ -2546,12 +2637,14 @@ class App:
             texts.append(member.text_catsle)
             values.append(member)
         if not win:
-            win = Window.open("training_change", 4, 3, 28, 12, texts).add_cursol()
+#             win = Window.open("training_change", 4, 3, 28, 12, texts).add_cursol()
+            win = Window.open("training_change", 3, 3, 27, 12, texts).add_cursol()
             win.values = values
             win.parm = parm  # 0は名前、1は職業
             if not cur_y is None:
                 win.cur_y = util.loop(cur_y, 1, len(win.cur_pos_y))
-            Window.open("training_change_msg", 4, 14, 28, 18, msg)
+#             Window.open("training_change_msg", 4, 14, 28, 18, msg)
+            Window.open("training_change_msg", 3, 14, 27, 18, msg)
 
     # くんれんじょう 名前入力
     def show_training_name(self, mode=0, member=None):
@@ -2572,7 +2665,8 @@ class App:
                 values.append(c)
             texts.append(text)
             texts.append("")
-        win = Window.open("training_name", 4, 5, 28, 18, texts[:-1])
+#         win = Window.open("training_name", 4, 5, 28, 18, texts[:-1])
+        win = Window.open("training_name", 3, 5, 27, 18, texts[:-1])
         win.add_cursol(
             [i * 2 for i in range(len(characters))], [i * 2 for i in range(12)]
         )
@@ -2590,7 +2684,8 @@ class App:
                 name += "■"
             win.texts = [f"{text + name}"]
         else:
-            Window.open("training_name_guide", 4, 3, 28, 3, text).parm = ""
+#             Window.open("training_name_guide", 4, 3, 28, 3, text).parm = ""
+            Window.open("training_name_guide", 3, 3, 27, 3, text).parm = ""
 
     # くんれんじょう 職業変更
     def show_training_job(self, member=None):
@@ -2608,7 +2703,8 @@ class App:
             f"     {member.name}  {member.class_s}  LV{member.lv}",
             "     どのしょくぎょうに てんしょくしますか？",
         ]
-        Window.open("training_job_old", 2, 4, 29, 5, texts).parm = member
+#         Window.open("training_job_old", 2, 4, 29, 5, texts).parm = member
+        Window.open("training_job_old", 2, 4, 28, 5, texts).parm = member
 
     # くんれんじょう 職業変更ガイド
     def show_training_job_guide(self):
@@ -2639,7 +2735,8 @@ class App:
             else:
                 texts.append(" [けっていボタンで てんしょくします]")
                 parm = True
-        Window.open("training_job_guide", 7, 7, 29, 17, texts).parm = parm
+#         Window.open("training_job_guide", 7, 7, 29, 17, texts).parm = parm
+        Window.open("training_job_guide", 7, 7, 28, 17, texts).parm = parm
 
     # 宝箱メンバー一覧
     def show_treasure_members(self):
@@ -2648,7 +2745,7 @@ class App:
         self.members = copy.deepcopy(self.battle.members)
         for mb in self.members:
             texts += [
-                f"     {util.spacing(mb.name,6)} LV {mb.lv}",
+                f"     {util.spacing(mb.name,6)} LV{mb.lv}",
                 f"     HP {util.pad(mb.hp,3)}/{mb.status()}",
                 "",
             ]
@@ -2658,7 +2755,8 @@ class App:
         if win:
             win.texts = texts
         else:
-            Window.open("treasure_members", 13, 4, 30, 17, texts).values = values
+#             Window.open("treasure_members", 13, 4, 30, 17, texts).values = values
+            Window.open("treasure_members", 13, 4, 28, 17, texts).values = values
 
     ### イベント処理 ###
 

@@ -67,6 +67,7 @@ class Window:
         if self.key == "menu_members":
             for i, member in enumerate(members):
                 x = 8 if member.pos == 0 else 16
+#                 x = 4 if member.pos == 0 else 12
                 self.draw_member(x, 18 + i * 48, member)
         elif self.key in ("select_members", "treasure_members"):
             for i, member in enumerate(members):
@@ -83,10 +84,12 @@ class Window:
             item = self.parm
             for i, member in enumerate(members):
                 motion = 6 if member.can_equip(item) and px.frame_count % 30 < 15 else 0
-                self.draw_member(4 + i * 48, 6, member, motion)
+#                 self.draw_member(4 + i * 48, 6, member, motion)
+                self.draw_member(12 + i * 40, 6, member, motion)
                 if item.id in member.equips:
                     add_y = 1 if member.health < 4 else 0
-                    self.text(self.x1 + i * 6 + 3, self.y1 + add_y, "E")
+#                     self.text(self.x1 + i * 6 + 3, self.y1 + add_y, "E")
+                    self.text(self.x1 + i * 5 + 4, self.y1 + add_y, "E")
         elif self.key == "training_new":
             for idx in range(4):
                 x = self.x1 * 8 + idx * 56 + 16
@@ -226,11 +229,13 @@ class Window:
             texts = msg
         else:
             texts = msg_list[msg]
-        return cls.open("message", 1, 0, 30, 4, texts)
+#         return cls.open("message", 1, 0, 30, 4, texts)
+        return cls.open("message", 1, 0, 28, 4, texts)
 
     # セレクタウィンドウ
     @classmethod
-    def selector(cls, kind, parm=None, x=27, y=6):
+#     def selector(cls, kind, parm=None, x=27, y=6):
+    def selector(cls, kind, parm=None, x=25, y=6):
         if kind == "yn":
             texts = [" はい", " いいえ"]
             values = None
@@ -255,6 +260,7 @@ class Window:
             texts = [" New Game", " Continue", " Config"]
             values = None
             x1, y1, x2, y2 = x - 6, y - 4, x + 3, y - 2
+#             x1, y1, x2, y2 = x - 9, y - 4, x + 0, y - 2
             if not Userdata.is_web():
                 texts.append(" Exit")
                 y2 += 1

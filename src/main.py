@@ -1564,7 +1564,9 @@ class App:
             elif self.scene in [2, 3, 4] and Window.get("place"):
                 place = Window.get("place").parm
                 if place == None or Window.get("training"):
-                    px.blt(28, 36, 1, 0, 0, 208, 112)
+#                     px.blt(28, 36, 1, 0, 0, 208, 112)
+                    # (240-208)/2 = 16, +2は目で調整
+                    px.blt(18, 36, 1, 0, 0, 208, 112)
         # ウィンドウ
         for key in Window.all:
             win = Window.all[key]

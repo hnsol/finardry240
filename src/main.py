@@ -2378,7 +2378,8 @@ class App:
             " くんれんじょう",
             " ちかめいきゅう",
         ]
-        Window.open("catsle", 10, 13, 21, 17, texts).add_cursol().cur_y = cur_y
+#         Window.open("catsle", 10, 13, 21, 17, texts).add_cursol().cur_y = cur_y
+        Window.open("catsle", 9, 13, 20, 17, texts).add_cursol().cur_y = cur_y
 
     # キャッスル内の場所
     def show_place(self, parm):
@@ -2395,7 +2396,8 @@ class App:
         bef_spc = (12 - len(place)) // 2
         aft_spc = (13 - len(place)) // 2
         Window.open(
-            "place", 10, 1, 21, 1, f"{' ' * bef_spc}{place}{' ' * aft_spc}"
+#             "place", 10, 1, 21, 1, f"{' ' * bef_spc}{place}{' ' * aft_spc}"
+            "place", 9, 1, 20, 1, f"{' ' * bef_spc}{place}{' ' * aft_spc}"
         ).parm = parm
 
     # ギルガメッシュのさかば：メイン
@@ -2513,7 +2515,8 @@ class App:
             " しょくぎょうを かえる",
             " しろに もどる",
         ]
-        win = Window.open("training", 10, 13, 21, 17, texts).add_cursol()
+#         win = Window.open("training", 10, 13, 21, 17, texts).add_cursol()
+        win = Window.open("training", 9, 13, 20, 17, texts).add_cursol()
         if not cur_y is None:
             win.cur_y = cur_y
 

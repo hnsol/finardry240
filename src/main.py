@@ -1649,7 +1649,7 @@ class App:
             " B/みぎボタン : キャンセル",
             " X/ひだりボタン: メニューをひらく",
             " Y/うえボタン : リセット（ながおし２びょう）",
-            "                 ver.231210",
+            "            ver.231210-240a",
         ]
 #         Window.open("operation_guide", 2, 6, 28, 19, texts, True)
         Window.open("operation_guide", 2, 6, 28, 18, texts, True)

@@ -7,7 +7,7 @@
 - RGB30の720x720の画面いっぱいに表示して遊ぶための改訂版です。
 - この改訂版は原作者の許可を得て配布しています。
 - 改訂におけるすべての責任は私にありますので、原作者には問い合わせないでください。
-- `finardry.pyxapp` をダウンロードしてご利用ください。
+- `finardry240.pyxapp` をダウンロードしてご利用ください。
 
 ![before-after.jpeg](https://cdn-ak.f.st-hatena.com/images/fotolife/m/masatora_bd5/20240417/20240417020939.jpg)
 
